@@ -1,0 +1,9 @@
+All instructions are based on the following instantiation:
+  chrome = new ChromeDriver();
+
+
+
+
+
+To maximize the size of the browser window:
+  chrome.manage().window().maximize();
