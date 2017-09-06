@@ -2,11 +2,15 @@
 package automatedtests;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 
@@ -15,8 +19,11 @@ public class Website {
     public String sourcecode;
     public String text;
     private final WebDriver wd;
+    public ArrayList<Device> devices = new ArrayList<>();
     
+        //Website Contructor: Takes as an argument the url of website
         public Website(String arg_url){
+          //If user gives empty string or null, we'll just use example.com
           if(arg_url == null || arg_url.trim().isEmpty()){
             arg_url = "http://example.com/";
           }
@@ -35,13 +42,21 @@ public class Website {
           return this.sourcecode;
         }
         
-        public String getWebsiteName(){
+        public String getURL(){
           return this.url;
         }
         
-        //Remove all of the html tags and return only the text on webpage
-        public String getText(){
-          return null;
+        //Remove all of the html tags and return all the text of given html tag
+        public ArrayList<String> getTextOf(String tag){
+          if(tag == null || tag.isEmpty()){
+            return null;
+          }
+  
+          ArrayList<String> result = new ArrayList<>();
+          for(WebElement we : this.wd.findElements(By.cssSelector(tag))){
+            result.add(we.getText());
+          }
+          return result;
         }
         
         //Returns the driver used to instanciate this Object
@@ -59,6 +74,7 @@ public class Website {
         public void maximizeScreen(){
           this.getDriver().manage().window().maximize();
         }
+        
         //Captures Screenshot 
         public  String captureScreenshot (String screenshotName){
             WebDriver driver = this.getDriver();
@@ -73,6 +89,17 @@ public class Website {
             } 
 
         catch (IOException e) {return e.getMessage();}
+        }
+        
+        //Returns all elements of class name X
+        public ArrayList<WebElement> getAllElements(String cssClass){
+          WebDriver driver = this.getDriver();
+          return (ArrayList)driver.findElements(By.cssSelector(cssClass));
+        }
+        
+        //Add another Device to the list of devices we want to test website on
+        public void addDevice(Device device){
+          this.devices.add(device);
         }
 
 
