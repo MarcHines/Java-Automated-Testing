@@ -27,14 +27,18 @@ public class AutomatedTests {
        website.addDevice(new iPhone("5"));
        website.maximizeScreen();
        
-       website.scrollDown(0, 250);
-       try{
-       Thread.sleep(4000);
-       }catch(Exception e){}
-       website.scrollDown(250, 2500);
+       ArrayList<String> allLinkText = new ArrayList<String>();
        
+       for(WebElement webelement : website.getAllElements("a")){
+           if(!webelement.getText().equals("")){
+              allLinkText.add(webelement.getText().trim());
+           }
+       }
        
-      
+       System.out.println(allLinkText);
+       System.out.println(website.getURL());
+       website.clickLink(allLinkText.get(0));
+       System.out.println(website.getURL());
     }
   
 }

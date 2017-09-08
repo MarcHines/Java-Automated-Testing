@@ -2,8 +2,7 @@
 package automatedtests;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -44,7 +43,7 @@ public class Website {
         }
         
         public String getURL(){
-          return this.url;
+          return this.wd.getCurrentUrl();
         }
         
         //Remove all of the html tags and return all the text of given html tag
@@ -114,5 +113,11 @@ public class Website {
           String arg = "scrollBy(" + Integer.toString(start) + "," + Integer.toString(end) + ")";
           js.executeScript(arg);
         }
-
+        
+        //Clicks link that has given name
+        public void clickLink(String text){
+          if(text != null && !text.isEmpty()){
+              this.wd.findElement(By.linkText(text)).click();
+          }
+        }
 }
