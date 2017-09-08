@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -101,6 +102,17 @@ public class Website {
         public void addDevice(Device device){
           this.devices.add(device);
         }
-
+  
+        //Returns list of devices that we can use to test
+        public ArrayList<Device> getDevices(){
+          return this.devices;
+        }
+        
+        //Scrolls down the page to specified range. Use 0 - 2500 for bottom of page
+        public void scrollDown(int start, int end){
+          JavascriptExecutor js = (JavascriptExecutor)this.wd;
+          String arg = "scrollBy(" + Integer.toString(start) + "," + Integer.toString(end) + ")";
+          js.executeScript(arg);
+        }
 
 }

@@ -21,11 +21,20 @@ public class AutomatedTests {
        Website website = new Website("https://dev-marketingexperiments.meclabs.net/participate-research-project-drive-conversion-increases");
        ArrayList<String> paragraphText = website.getTextOf("p");
        
-      // System.out.print(paragraphText);
        
-       iPhone ip = new iPhone("6");
-       System.out.println(ip.deviceName);
+       website.addDevice(new iPhone("6"));
+       website.addDevice(new iPhone("6Plus"));
+       website.addDevice(new iPhone("5"));
+       website.maximizeScreen();
        
+       website.scrollDown(0, 250);
+       try{
+       Thread.sleep(4000);
+       }catch(Exception e){}
+       website.scrollDown(250, 2500);
+       
+       
+      
     }
   
 }

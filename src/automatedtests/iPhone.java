@@ -2,11 +2,7 @@ package automatedtests;
 import java.util.*;
 
 public class iPhone extends Device {
-    public final int width;
-    public final int height;
-    public final String deviceName;
     public final String version;
-   
     public iPhone(String version){
          this.version = version;
          
@@ -33,9 +29,6 @@ public class iPhone extends Device {
          }
          
          this.deviceName = "iPhone " + version;
-    }
-    
-    public void landscape(){
-      
+         this.isPhone = true;
     }
 }
